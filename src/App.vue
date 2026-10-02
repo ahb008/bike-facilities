@@ -23,7 +23,7 @@ const addPopup = (feature: BikeFacilityFeature, layer: Layer) => {
   const popupContent = `
     <h2>${feature.properties.SegmentName}</h2>
     <br/>
-    <h3>Facility Description: ${description}</h3>
+    <h3>${description}</h3>
     <h3>Map Class: ${mapClass}</h3>
   `;
   layer.bindPopup(popupContent);
@@ -95,7 +95,7 @@ onMounted(() => {
       title="Map Information"
       :facilityDistribution
     />
-    <div id="map" ref="mapElement"></div>
+    <div id="map" ref="mapElement" />
   </main>
 </template>
 

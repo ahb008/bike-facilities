@@ -1,6 +1,7 @@
 import type { FacilityCode } from "@/types/types";
 import colors from "../assets/colors.module.scss";
 
+// Record containing data about each type of bike facility and corresponding color assignment
 export const bikeFacilities: Record<
   FacilityCode,
   { description: string; mapClass: number; color: string }

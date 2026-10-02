@@ -5,7 +5,7 @@ import { bikeFacilities } from "../utils/general.ts";
 
 defineProps<{
   title: string;
-  facilityDistribution: FacilityDistribution;
+  facilityDistribution: FacilityDistribution; //Quantity of facilities by type
 }>();
 </script>
 
@@ -20,6 +20,7 @@ defineProps<{
     <div class="modal-main">
       <p>The interactive map below displays Portland's bike facilities.</p>
       <p>Click on a facility for more information.</p>
+      <!-- Table for facility color key and quantity -->
       <div class="facility-table-wrapper">
         <div v-for="(f, code) in facilityDistribution" :key="code" class="row">
           <div
@@ -30,6 +31,7 @@ defineProps<{
           <p class="facility-count">{{ f }}</p>
         </div>
       </div>
+      <!-- Key for solid vs. dashed facilities -->
       <div class="stroke-key">
         <div class="dashed-line" />
         <p>Planned</p>
@@ -57,6 +59,7 @@ defineProps<{
   gap: 16px;
   width:80%;
   max-width: 460px;
+  margin-left: 50px;
 
   .modal-header {
     display: flex;
@@ -110,10 +113,10 @@ defineProps<{
 }
 .dashed-line {
   width: 40px;
-  border-top: 4px dashed #3b82f6;
+  border-top: 4px dashed $primary-teal;
 }
 .solid-line {
   width: 40px;
-  border-top: 4px solid #3b82f6;
+  border-top: 4px solid $primary-teal;
 }
 </style>
