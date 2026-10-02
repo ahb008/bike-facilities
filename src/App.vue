@@ -1,15 +1,23 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import geojsonData from "./assets/bike-facilities.json";
-import { applyColor, bikeFacilities } from "./utils/general.ts";
+import L from "leaflet";
+import type { Layer } from "leaflet";
+import rawData from "./assets/bike-facilities.json";
+import { bikeFacilities } from "./utils/general.ts";
 import { Icon } from "@iconify/vue";
 import Modal from "./components/Modal.vue";
-import FacilityInventory from "./components/FacilityInventory.vue";
+import type {
+  BikeFacilityFeature,
+  FacilityCode,
+  BikeFacilityCollection,
+} from "./types/types.ts";
 
 const mapElement = ref(null);
 const openInfoModal = ref(false);
 
-const addPopup = (feature, layer) => {
+const geojsonData = rawData as BikeFacilityCollection;
+
+const addPopup = (feature: BikeFacilityFeature, layer: Layer) => {
   const { description, mapClass } = bikeFacilities[feature.properties.Facility];
   const popupContent = `
     <h2>${feature.properties.SegmentName}</h2>
@@ -35,6 +43,7 @@ let facilityDistribution = {
 };
 
 onMounted(() => {
+  if (!mapElement.value) return;
   var map = L.map(mapElement.value).setView([45.52, -122.67], 12);
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
@@ -46,14 +55,16 @@ onMounted(() => {
 
   featureArray.map((feature) => {
     const isPlanned = feature.properties.Status === "PLANNED";
-    const facilityType = feature.properties.Facility;
+    const facilityType: FacilityCode = feature.properties.Facility;
 
     facilityDistribution[facilityType]++;
 
     L.geoJSON(feature, {
       onEachFeature: addPopup,
-      style: { color: applyColor(feature) },
-      dashArray: isPlanned ? 5 : 0,
+      style: {
+        color: bikeFacilities[facilityType].color,
+        dashArray: isPlanned ? "4, 4" : "",
+      },
     }).addTo(map);
   });
 });
@@ -62,7 +73,7 @@ onMounted(() => {
 <template>
   <header>
     <div class="wrapper">
-      <h1>Portland Bike Lines</h1>
+      <h1>Portland Bike Facilities</h1>
       <button class="icon-button" @click="openInfoModal = true">
         <Icon icon="carbon:information" width="24" />
       </button>
@@ -75,14 +86,15 @@ onMounted(() => {
       v-if="openInfoModal"
       @close-modal="openInfoModal = false"
       title="Map Information"
-    >
-      <FacilityInventory :facilityDistribution />
-    </Modal>
+      :facilityDistribution
+    />
     <div id="map" ref="mapElement"></div>
   </main>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@import "./assets/colors.module.scss";
+
 header {
   line-height: 1.5;
   .wrapper {
@@ -92,8 +104,7 @@ header {
     width: 100%;
 
     .icon-button {
-      /* TODO: Andrew change color here */
-      color: white;
+      color: $gray-light;
       background: none;
       border: none;
       padding: 8px;

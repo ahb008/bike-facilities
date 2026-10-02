@@ -15,11 +15,14 @@ $font-body: "Open Sans", sans-serif;
 
 h1 {
   color: $primary-teal;
+  font-family: $font-headline;
 }
 h2,
 h3 {
   color: $primary-navy;
+  font-family: $font-headline;
 }
 p {
   color: $gray-light;
+  font-family: $font-body;
 }

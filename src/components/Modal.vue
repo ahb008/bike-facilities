@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import type { FacilityDistribution } from "@/types/types";
 import { Icon } from "@iconify/vue";
+import { bikeFacilities } from "../utils/general.ts";
 
 defineProps<{
   title: string;
+  facilityDistribution: FacilityDistribution;
 }>();
 </script>
 
@@ -11,26 +14,47 @@ defineProps<{
     <div class="modal-header">
       <h1>{{ title }}</h1>
       <button @click="$emit('closeModal')" class="close-button">
-        <Icon icon="ant-design:close-circle-outlined" width="24" />
+        <Icon icon="ant-design:close-circle-outlined" width="18" />
       </button>
     </div>
     <div class="modal-main">
-      <slot />
+      <p>The interactive map below displays Portland's bike facilities.</p>
+      <p>Click on a facility for more information.</p>
+      <div class="facility-table-wrapper">
+        <div v-for="(f, code) in facilityDistribution" :key="code" class="row">
+          <div
+            class="circle"
+            :style="{ background: bikeFacilities[code]?.color }"
+          />
+          <p>{{ bikeFacilities[code]?.description }} ({{ code }})</p>
+          <p class="facility-count">{{ f }}</p>
+        </div>
+      </div>
+      <div class="stroke-key">
+        <div class="dashed-line" />
+        <p>Planned</p>
+      </div>
+      <div class="stroke-key">
+        <div class="solid-line" />
+        <p>Active</p>
+      </div>
     </div>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@import "../assets/colors.module.scss";
+
 .modal-wrapper {
   display: flex;
   flex-direction: column;
   z-index: 999999999;
-  /* TODO: Change background color here */
-  /* background-color: red; */
-  background-color: black;
+  background-color: $primary-navy;
   border-radius: 8px;
-  padding: 16px;
-  min-width: 22%;
+  padding: 12px;
+  margin-top: 16px;
+  margin-left: 16px;
+  gap: 16px;
 
   .modal-header {
     display: flex;
@@ -39,12 +63,55 @@ defineProps<{
   }
 
   .close-button {
-    /* TODO: Andrew change color here */
-    color: white;
+    color: $gray-light;
     background: none;
     border: none;
     padding: 4px;
     cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 4px;
+    margin-right: 4px;
   }
+}
+.facility-table-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+.facility-count {
+  margin-left: auto;
+}
+
+.stroke-key {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dashed-row {
+  display: flex;
+  align-items: center;
+}
+.dashed-line {
+  width: 40px;
+  border-top: 4px dashed #3b82f6;
+}
+.solid-line {
+  width: 40px;
+  border-top: 4px solid #3b82f6;
 }
 </style>
