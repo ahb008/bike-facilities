@@ -1,0 +1,30 @@
+// Primary Palette
+$primary-teal: #009f9d;
+$primary-navy: #303244;
+
+// Accent Color
+$accent-yellow: #fbad18;
+
+// Supplementary Palette
+$teal-light: #4bc0b1;
+$teal-dark: #005152;
+$slate: #424963;
+$blue: #3862ae;
+$orange: #f3735a;
+$red: #f0565f;
+$gray-lightest: #f4f4f4;
+$gray-light: #eae8e9;
+
+:export {
+  primaryTeal: $primary-teal;
+  primaryNavy: $primary-navy;
+  accentYellow: $accent-yellow;
+  tealLight: $teal-light;
+  tealDark: $teal-dark;
+  slate: $slate;
+  blue: $blue;
+  orange: $orange;
+  red: $red;
+  grayLightest: $gray-lightest;
+  grayLight: $gray-light;
+}

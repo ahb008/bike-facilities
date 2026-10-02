@@ -15,6 +15,7 @@
     "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
+    "sass": "^1.105.1",
     "vue": "^3.5.42"
   },
   "devDependencies": {

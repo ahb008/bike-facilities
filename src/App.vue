@@ -1,25 +1,54 @@
 <script setup lang="ts">
-import HelloWorld from "./components/HelloWorld.vue";
+import { ref, onMounted } from "vue";
+import geojsonData from "./assets/bike-facilities.json";
 import TheWelcome from "./components/TheWelcome.vue";
+import PopUp from "./components/PopUp.vue";
+import { applyColor, bikeFacilities } from "./utils/general.ts";
+
+const mapElement = ref(null);
+
+const addPopup = (feature, layer) => {
+  const {description, mapClass}: string = bikeFacilities[feature.properties.Facility];
+  const popupContent = `
+    <h2>${feature.properties.SegmentName}</h2>
+    <br/>
+    <h3>Facility Description: ${description}</h3>
+    <h3>Map Class: ${mapClass}</h3>
+  `;
+  layer.bindPopup(popupContent);
+};
+
+onMounted(() => {
+  var map = L.map(mapElement.value).setView([45.52, -122.67], 12);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution:
+      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(map);
+
+  const featureArray = geojsonData.features;
+
+  const applyFeaturesAndPopups = featureArray.map((feature) => {
+    const isPlanned = feature.properties.Status === "PLANNED";
+
+    L.geoJSON(feature, {
+      onEachFeature: addPopup,
+      style: { color: applyColor(feature) },
+      dashArray: isPlanned ? 5 : 0,
+    }).addTo(map);
+  });
+});
 </script>
 
 <template>
   <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="./assets/logo.svg"
-      width="125"
-      height="125"
-    />
-
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <h1>Portland Bike Lines</h1>
     </div>
   </header>
 
   <main>
-    <TheWelcome />
+    <div id="map" ref="mapElement"></div>
   </main>
 </template>
 
@@ -28,26 +57,19 @@ header {
   line-height: 1.5;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+#map {
+  height: 80vh;
+  width: 100%;
 }
 
 @media (min-width: 1024px) {
   header {
     display: flex;
     place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
   }
 
   header .wrapper {
     display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
   }
 }
 </style>
