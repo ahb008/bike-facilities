@@ -1,7 +1,6 @@
 # bike-facilities
 
-This project is an interactive map of Portland's bike Facilities.
-
+This project is an interactive map of Portland's bike Facilities. Each kind of facility is categorized to be a different color based on the type of facility.
 
 Stack: Vue, Typescript, Leaflet, SCSS
 
@@ -14,4 +13,4 @@ Used to help render map: https://ssojet.com/data-structures/implement-map-in-nux
 
 Useful for importing SCSS shared variables: https://stackoverflow.com/questions/35580710/using-sass-variables-in-a-vuejs-component & https://stackoverflow.com/questions/
 
-*Note: AI (Claude Sonnet 5.5) was used for this project to define types/data objects, resolve typing related bugs, syntax formatting (I typically use React for frontend), and creating styles for shapes (i.e. the circles in the information modal). At no point was AI ever used within the coding IDE. Components, logic, and designs created by me.
+*Note: AI (Claude Sonnet 5.5) was used for this project to define types/data objects, resolve typing related bugs, syntax formatting (I typically use React for frontend), and creating styles for shapes (i.e. the circles in the information modal). At no point was AI ever used within the coding IDE.
