@@ -13,7 +13,7 @@ defineProps<{
   <div class="modal-wrapper">
     <div class="modal-header">
       <h1>{{ title }}</h1>
-      <button @click="$emit('closeModal')" class="close-button">
+      <button @click="$emit('closeModal')" class="close-button" aria-label="Close Modal">
         <Icon icon="ant-design:close-circle-outlined" width="18" />
       </button>
     </div>
@@ -55,6 +55,8 @@ defineProps<{
   margin-top: 16px;
   margin-left: 16px;
   gap: 16px;
+  width:80%;
+  max-width: 460px;
 
   .modal-header {
     display: flex;

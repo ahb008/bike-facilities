@@ -17,6 +17,7 @@ const openInfoModal = ref(false);
 
 const geojsonData = rawData as BikeFacilityCollection;
 
+// Adds popup to bike facility feature with informational content
 const addPopup = (feature: BikeFacilityFeature, layer: Layer) => {
   const { description, mapClass } = bikeFacilities[feature.properties.Facility];
   const popupContent = `
@@ -28,6 +29,7 @@ const addPopup = (feature: BikeFacilityFeature, layer: Layer) => {
   layer.bindPopup(popupContent);
 };
 
+// Initializes facility record that will be used to count each facility type
 let facilityDistribution = {
   ABL: 0,
   BBBL: 0,
@@ -42,9 +44,12 @@ let facilityDistribution = {
   TRL: 0,
 };
 
+// Use onMounted to wait until DOM container exists before applying map and it's layers 
 onMounted(() => {
   if (!mapElement.value) return;
   var map = L.map(mapElement.value).setView([45.52, -122.67], 12);
+
+  //Creates map layer using Open Street Map
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution:
@@ -57,8 +62,10 @@ onMounted(() => {
     const isPlanned = feature.properties.Status === "PLANNED";
     const facilityType: FacilityCode = feature.properties.Facility;
 
-    facilityDistribution[facilityType]++;
+    facilityDistribution[facilityType]++; // Tracks quantity of each facility type
 
+    // Add each bike feature to the geoJSON layer and add to map
+    // Note: addPopup appends informational popup to each bike feature
     L.geoJSON(feature, {
       onEachFeature: addPopup,
       style: {
@@ -74,7 +81,7 @@ onMounted(() => {
   <header>
     <div class="wrapper">
       <h1>Portland Bike Facilities</h1>
-      <button class="icon-button" @click="openInfoModal = true">
+      <button class="icon-button" @click="openInfoModal = true" aria-label="Information Modal">
         <Icon icon="carbon:information" width="24" />
       </button>
     </div>
