@@ -5,6 +5,9 @@ This project is an interactive map of Portland's bike Facilities.
 
 Stack: Vue, Typescript, Leaflet, SCSS
 
+<img width="1215" height="762" alt="Screenshot 2026-10-02 at 4 19 04 PM" src="https://github.com/user-attachments/assets/19985663-d636-43fd-a4e8-f6efe45d3ea5" />
+
+
 Resources:
 https://leafletjs.com/reference.html
 
