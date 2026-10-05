@@ -26,4 +26,4 @@ Containerizing a Vue app: https://docs.docker.com/guides/vuejs/
 
 Useful for importing SCSS shared variables: https://stackoverflow.com/questions/35580710/using-sass-variables-in-a-vuejs-component & https://stackoverflow.com/questions/
 
-*Note: AI (Claude Sonnet 5.5) was used for this project to define types/data objects, resolve typing related bugs, syntax formatting (I typically use React for frontend), and creating styles for shapes (i.e. the circles in the information modal). At no point was AI ever used within the coding IDE.
+*Note: AI (Claude Sonnet 5.5) was used for this project to define types/data objects, resolve typing related bugs, and syntax formatting (I typically use React for frontend). At no point was AI ever used within the IDE.
