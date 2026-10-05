@@ -1,6 +1,6 @@
 # bike-facilities
 
-This project is an interactive map of Portland's bike Facilities. Each kind of facility is categorized to be a different color on the map based on facility type. Clicking on a facility reveals more information about that particular facility via a pop up.
+This project is an interactive map of Portland's bike facilities. Each kind of facility is categorized to be a different color on the map based on facility type. Clicking on a facility reveals more information about that particular facility via a pop up.
 
 Stack: Vue, Typescript, Leaflet, SCSS
 
