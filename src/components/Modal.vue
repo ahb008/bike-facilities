@@ -13,7 +13,11 @@ defineProps<{
   <div class="modal-wrapper">
     <div class="modal-header">
       <h1>{{ title }}</h1>
-      <button @click="$emit('closeModal')" class="close-button" aria-label="Close Modal">
+      <button
+        @click="$emit('closeModal')"
+        class="close-button"
+        aria-label="Close Modal"
+      >
         <Icon icon="ant-design:close-circle-outlined" width="18" />
       </button>
     </div>
@@ -45,7 +49,7 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
-@import "../assets/colors.module.scss";
+@use "../assets/colors.module.scss" as *;
 
 .modal-wrapper {
   display: flex;
@@ -57,7 +61,7 @@ defineProps<{
   margin-top: 16px;
   margin-left: 16px;
   gap: 16px;
-  width:80%;
+  width: 80%;
   max-width: 460px;
   margin-left: 50px;
 

@@ -44,7 +44,7 @@ let facilityDistribution = {
   TRL: 0,
 };
 
-// Use onMounted to wait until DOM container exists before applying map and it's layers 
+// Use onMounted to wait until DOM container exists before applying map and it's layers
 onMounted(() => {
   if (!mapElement.value) return;
   var map = L.map(mapElement.value).setView([45.52, -122.67], 12);
@@ -81,7 +81,11 @@ onMounted(() => {
   <header>
     <div class="wrapper">
       <h1>Portland Bike Facilities</h1>
-      <button class="icon-button" @click="openInfoModal = true" aria-label="Information Modal">
+      <button
+        class="icon-button"
+        @click="openInfoModal = true"
+        aria-label="Information Modal"
+      >
         <Icon icon="carbon:information" width="24" />
       </button>
     </div>
@@ -100,7 +104,7 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
-@import "./assets/colors.module.scss";
+@use "./assets/colors.module.scss" as *;
 
 header {
   line-height: 1.5;
