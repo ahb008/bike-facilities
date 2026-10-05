@@ -6,7 +6,7 @@ Stack: Vue, Typescript, Leaflet, SCSS
 
 ## Running locally
 
-From the repo root, run:
+First, install and run Docker. Then, from the repo root, run:
 
     docker compose up --build
 
